@@ -1,11 +1,11 @@
-### Synopsis
+## Synopsis
 
 Yaz0 is a run length encoding method used throughout Breath of the Wild. The
 format is thoroughly understood and has a variety of tools to decompress it.
 
-### Data Structure
+## Data Structure
 
-#### Header
+### Header
 
 | Offset |   Type   | Description                   |
 |:------:|:--------:|-------------------------------|
@@ -13,7 +13,7 @@ format is thoroughly understood and has a variety of tools to decompress it.
 |  0x04  | uint32_t | size of the uncompressed data |
 |  0x08  |  char[8] | null padding                  |
 
-#### Data Groups
+### Data Groups
 
 The complete compressed data is organized in data groups. Each data group
 consists of 1 group header byte and 8 chunks:
@@ -23,9 +23,9 @@ consists of 1 group header byte and 8 chunks:
 | 1 |   1 byte  | the group header byte         |
 | 8 | 1-3 bytes | 8 chunks                      |
 
-Each bit of the group header corespondents to one chunk:
-* The MSB (most significant bit, 0x80) corespondents to chunk 1
-* The LSB (lowest significant bit, 0x01) corespondents to chunk 8
+Each bit of the group header correspondents to one chunk:
+* The MSB (most significant bit, 0x80) correspondents to chunk 1
+* The LSB (lowest significant bit, 0x01) correspondents to chunk 8
 
 A set bit (=1) in the group header means, that the chunk is exact 1 byte long. This byte must be copied to the output stream 1:1. A cleared bit (=0) defines, that the chunk is 2 or 3 bytes long interpreted as a back reference to already decompressed data that must be copied.
 

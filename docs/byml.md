@@ -1,17 +1,17 @@
-### Synopsis
+## Synopsis
 
 BYML is a binary YAML file and is used as a generic data container throughout
 Breath of the Wild. Unlike other Nintendo games Breath of the Wild identifies
 it's version as `0x02` being the first to do so.
 
-### Data Structure
+## Data Structure
 
 The file is broken up into a node structure, with possible interlinking between
 the nodes. Each node has a one byte format identifier. The File begins with a
 header which points to up to four special nodes; the node name table node; the
 string value table node; the path value node and finally the root node.
 
-#### Header
+### Header
 
 | Offset | Size | Description                                                                                                                                                    |
 |:------:|:----:|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -21,7 +21,7 @@ string value table node; the path value node and finally the root node.
 |  0x08  |  4   | String value table node Offset to the string value table node, relative to start. May be 0 if string values unused. Must be a string value node (0xc2).        |
 |  0x0c  |  4   | Root node Offset to the root node, relative to start. Must be either an array node (0xc0) or a dictionary node (0xc1).                                         |
 
-#### Nodes
+### Nodes
 
 Every node format has a unique one byte identifier as follows. Some nodes are
 considered value nodes as indicated below. The full nodes have a longer encoding
@@ -38,12 +38,12 @@ within the file does not seem to matter.
 |    0xD1    |          Value         | Integer. Node is a signed integer value.                                                             |
 |    0xD2    |          Value         | Float. Node is a 32 bit floating point value.                                                        |
 
-###### Value Nodes
+#### Value Nodes
 Value nodes can only be encoded as children of other nodes. Each value node has
 a direct four byte encoding. For string and path values, this encoding is simply
 a four byte index into the string or path tables respectively.
 
-###### 0xC0 - Array Node
+#### 0xC0 - Array Node
 
 | Offset | Size | Description                                                                 |
 |:------:|:----:|-----------------------------------------------------------------------------|
@@ -56,7 +56,7 @@ padding is the variable length array of N node values. For value nodes this is
 the four byte node value. For full nodes this is an offset to the node relative
 to the start of the file.
 
-###### 0xC1 - Dictionary Node
+#### 0xC1 - Dictionary Node
 
 Dictionary nodes are used to encode name value collections. The order of entries
 in the dictionary does not seem to matter.
@@ -75,7 +75,7 @@ has the following structure.
 |  0x03  |  1   | The node type.                                                                                                                           |
 |  0x04  |  4   | Value. For value nodes this is the four byte node value. For full nodes this is an offset to the node relative to the start of the file. |
 
-###### 0xC2 - String Table Node
+#### 0xC2 - String Table Node
 
 | Offset | Size | Description                                                                                                                                                    |
 |:------:|:----:|-----------------------------------------------------------------------------------------------------------------------------------------------|
