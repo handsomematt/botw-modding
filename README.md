@@ -1,7 +1,7 @@
 <p align="center">
-  ![alt text](logo.png)<br>
-  _The Legend of Zelda: Breath of the Wild_<br>
-  Modding
+  <img src="logo.png"/><br>
+  <i>The Legend of Zelda: Breath of the Wild</i><br>
+  Modding Documentation and Tools
 </p>
 
 ### Documentation
