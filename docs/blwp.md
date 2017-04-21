@@ -4,6 +4,8 @@ These files contain transformation data of static instanced meshes in Breath of 
 Each mesh is identified by a name in the string table and can have one or many
 instances at various transformations.
 
+Each fragment of the map has these. And dungeons too.
+
 
 ## Data Structure
 
