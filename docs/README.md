@@ -1,1 +1,1 @@
-* [File Formats](file_formats/README.md)
+* [File Formats](file_formats/)
