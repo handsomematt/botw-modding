@@ -3,7 +3,7 @@
 Yaz0 is a run length encoding method used throughout Breath of the Wild. The
 format is thoroughly understood and has a variety of tools to decompress it.
 
-A simple tool to decompress Yaz0 files can be found in [`tools/unyaz0.cs`](tools/unyaz0.cs). (Compile using `csc unyaz0.cs`)
+A simple tool to decompress Yaz0 files can be found in [`/tools/unyaz0.cs`](/tools/unyaz0.cs). (Compile using `csc unyaz0.cs`)
 
 ## Data Structure
 
