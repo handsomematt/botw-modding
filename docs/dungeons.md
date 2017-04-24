@@ -1,4 +1,4 @@
-Dungeon levels are stored in `[SARC](file_formats/sarc.md)` archive files in
+Dungeon levels are stored in [`SARC`](file_formats/sarc.md) archive files in
 the Packs directory, files are named `Dungeonxxx.pack` from `000` to `119`
 numerically.
 
