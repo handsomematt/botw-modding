@@ -1,0 +1,110 @@
+// BoTW TSCB
+// Used to index heightmap files in the Terrain folder
+struct TSCB_HEADER {
+  char magic[4];
+  uint32 unk0;
+  uint32 unk1;
+  uint32 nameTableOffset; // Offset to TSCB_NAMETABLE
+  
+  float unk2;
+  float unk3;
+  uint32 unkStructCount; // Number of UNK_STR0 entries
+  uint32 nameTableCount; // Number of entries in TSCB_NAMETABLE, maybe something else also (recent discovery: also the number of UNK_STR1 entries)
+} header;
+
+// Header describing some unknown structure
+local int unkheader0Start;
+struct UNK_HEADER0 {
+  uint32 unk0;
+  uint32 unk1;
+  float unk2;
+  uint32 unk3;
+
+  unkheader0Start = FTell();
+
+  uint32 size;
+} unk_header0;
+
+// Now, a list of offsets to entries in the unknown structure
+local int skipPos;
+local int lastPos;
+struct {
+  struct UNK_STR0 {
+    lastPos = FTell();
+    skipPos = ReadUInt();
+
+    FSkip(skipPos);
+
+    uint32 index;
+    float unk0;
+    float unk1;
+    float unk2;
+    float unk3;
+
+    FSeek(lastPos);
+    FSkip(4);
+  } unk_str0[header.unkStructCount] <optimize=false>;
+} unkCollection;
+
+// Same thing, list of offsets to some unknown struct
+FSeek(unkheader0Start + unk_header0.size);
+
+string UNKSTR1READ(struct UNK_STR1& s)
+{
+  return s.fileName;
+}
+
+local int strReadRestorePos;
+struct {
+  struct UNK_STR1 {
+    
+    lastPos = FTell();
+    skipPos = ReadUInt();
+
+    FSkip(skipPos);
+
+    float positionX;
+    float positionY;
+    float scale;
+    float unk3;
+    float unk4;
+    float unk5;
+    float unk6;
+    uint32 unk7; // row number
+
+    uint32 strOffset;
+
+    strReadRestorePos = FTell();
+    FSkip(strOffset - 4); // subtract the size of stroffset
+
+    string fileName;
+    FSeek(strReadRestorePos);
+
+    uint32 unk9;
+    uint32 unk10;
+
+    FSeek(lastPos);
+    FSkip(4);
+  } unk_str1[header.nameTableCount] <optimize=false, read=UNKSTR1READ>;
+} unkCollection1;
+
+FSeek(header.nameTableOffset);
+struct TSCB_NAMETABLE {
+  uint32 unk0;
+  uint32 unk1;
+  uint32 unk2;
+  uint32 unk3;
+     
+  local int num;
+  while (!FEof()) {
+    struct TSCB_NAMESTRING {
+      // Skip any padding (these strings are null-padded to 4-byte boundaries)
+      while (ReadByte() == 0) {
+        FSeek(FTell() + 1);
+      }
+    
+      string name;
+    } namestring;
+  }
+
+} nametable;

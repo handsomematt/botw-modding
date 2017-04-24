@@ -1,0 +1,64 @@
+BigEndian();
+
+// Global SARC header
+struct SARC_HEADER {
+  char   magic[4];
+  uint16 headerLength;
+  uint16 byteOrder;
+  uint32 fileSize;
+  uint32 dataOffset;
+  uint32 unk0;
+} sarc_header;
+
+// Header for each node in the archive
+struct SFAT_HEADER {
+  char   magic[4];
+  uint16 headerLength;
+  uint16 nodeCount;
+  uint32 hashMultiplier;
+} sfat_header;
+
+// Nodes are basically entities in the archive
+struct SFAT_NODE {
+  uint32 fileNameHash;
+
+  BitfieldDisablePadding();
+  uchar  nodeType : 8;              
+  uint32 fileNameTableOffset : 24;  // 3-byte offset into string table below
+  BitfieldEnablePadding();
+
+  uint32 nodeDataBeginOffset;
+  uint32 nodeDataEndOffset;
+} sfat_node[ sfat_header.nodeCount ];
+
+struct SFNT_HEADER {
+  char   magic[4];
+  uint16 headerLength;
+  uint16 unk0;
+} sfnt_header;
+
+// String table incoming
+struct SFNT_STR {
+  // These strings are null padded to 4 byte boundaries, skip padding
+  while (ReadByte() == 0) {
+    FSeek(FTell() + 1);
+  }
+
+  string value;
+} sfnt_str [ sfat_header.nodeCount ] <optimize=false>;
+
+// Finally, data table.
+// Data is sequentially stored and is somtimes padded (? padding differs between files)
+local uint32 dataTableStart = sarc_header.dataOffset;
+local uint32 dataStart, dataLength;
+local uint32 i;
+for (i=0;i<sfat_header.nodeCount;i++) {
+  dataLength = sfat_node[i].nodeDataEndOffset - sfat_node[i].nodeDataBeginOffset;
+  dataStart = dataTableStart + sfat_node[i].nodeDataBeginOffset;
+
+  FSeek(dataStart);
+
+  struct SFNT_DATA {
+    char data[dataLength];
+  } sfnt_data;
+}
