@@ -70,7 +70,7 @@ struct {
     float unk1;
     float unk2;
     float unk3;
-    uint32 unk4; // row number
+    uint32 unk4; // always equal to variableCount / 4
 
     uint32 strOffset;
 
@@ -82,7 +82,7 @@ struct {
 
     uint32 unk5;
     uint32 unk6;
-    uint32 unk7; // always equal to variableCount / 2?
+    uint32 unk7; // always 0 or 4
 
     if (unk7 != 0)
     {

@@ -57,7 +57,7 @@ additional file descriptors in the MainField folder.
 |  0x10  |  4   | `float unk1`                                                        |
 |  0x14  |  4   | `float unk2`                                                        |
 |  0x18  |  4   | `float unk3`                                                        |
-|  0x1C  |  4   | `uint32 unk4` (always 0, 1 or 2)                                    |
+|  0x1C  |  4   | `uint32 unk4` (always equal to variableCount / 4)                   |
 |  0x20  |  4   | `uint32 stringOffset` offset to the tile "name" in the string table |
 |  0x24  |  4   | `uint32 unk5` Always 0.                                             |
 |  0x28  |  4   | `uint32 unk6` Always 0.                                             |
