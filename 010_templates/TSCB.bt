@@ -49,7 +49,7 @@ struct {
 // Same thing, list of offsets to some unknown struct
 FSeek(lookupheader0Start + lookup_header0.size);
 
-string UNKSTR1READ(struct UNK_STR1& s)
+string FILE_STR_READ(struct FILE_STR& s)
 {
   return s.fileName;
 }
@@ -92,7 +92,7 @@ struct {
 
     FSeek(lastPos);
     FSkip(4);
-  } unk_str1[header.fileCollectionCount] <optimize=false, read=UNKSTR1READ>;
+  } unk_str1[header.fileCollectionCount] <optimize=false, read=FILE_STR_READ>;
 } fileCollection;
 
 FSeek(header.stringTableOffset);
