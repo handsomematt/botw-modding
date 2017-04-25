@@ -4,26 +4,26 @@ struct TSCB_HEADER {
   char magic[4];
   uint32 unk0;
   uint32 unk1;
-  uint32 nameTableOffset; // Offset to TSCB_NAMETABLE
+  uint32 stringTableOffset; // Offset to TSCB_NAMETABLE
   
   float unk2;
   float unk3;
-  uint32 unkStructCount; // Number of UNK_STR0 entries
-  uint32 nameTableCount; // Number of entries in TSCB_NAMETABLE, maybe something else also (recent discovery: also the number of UNK_STR1 entries)
+  uint32 lookupStructCount; // Number of UNK_STR0 entries
+  uint32 fileCollectionCount; // Number of entries in TSCB_NAMETABLE, maybe something else also (recent discovery: also the number of UNK_STR1 entries)
 } header;
 
 // Header describing some unknown structure
-local int unkheader0Start;
-struct UNK_HEADER0 {
+local int lookupheader0Start;
+struct LOOKUP_HEADER0 {
   uint32 unk0;
   uint32 unk1;
   float unk2;
   uint32 unk3;
 
-  unkheader0Start = FTell();
+  lookupheader0Start = FTell();
 
   uint32 size;
-} unk_header0;
+} lookup_header0;
 
 // Now, a list of offsets to entries in the unknown structure
 local int skipPos;
@@ -36,18 +36,18 @@ struct {
     FSkip(skipPos);
 
     uint32 index;
-    float unk0;
-    float unk1;
-    float unk2;
-    float unk3;
+    float r;
+    float g;
+    float b;
+    float a;
 
     FSeek(lastPos);
     FSkip(4);
-  } unk_str0[header.unkStructCount] <optimize=false>;
-} unkCollection;
+  } unk_str0[header.lookupStructCount] <optimize=false>;
+} lookupCollection;
 
 // Same thing, list of offsets to some unknown struct
-FSeek(unkheader0Start + unk_header0.size);
+FSeek(lookupheader0Start + lookup_header0.size);
 
 string UNKSTR1READ(struct UNK_STR1& s)
 {
@@ -56,7 +56,7 @@ string UNKSTR1READ(struct UNK_STR1& s)
 
 local int strReadRestorePos;
 struct {
-  struct UNK_STR1 {
+  struct FILE_STR {
     
     lastPos = FTell();
     skipPos = ReadUInt();
@@ -82,14 +82,21 @@ struct {
 
     uint32 unk9;
     uint32 unk10;
+    uint32 unk11; // always 4?
+
+    if (unk7 != 0)
+    {
+        uint32 variableCount;
+        uint32 additionalInts[variableCount];
+    }
 
     FSeek(lastPos);
     FSkip(4);
-  } unk_str1[header.nameTableCount] <optimize=false, read=UNKSTR1READ>;
-} unkCollection1;
+  } unk_str1[header.fileCollectionCount] <optimize=false, read=UNKSTR1READ>;
+} fileCollection;
 
-FSeek(header.nameTableOffset);
-struct TSCB_NAMETABLE {
+FSeek(header.stringTableOffset);
+struct TSCB_STRINGTABLE {
   uint32 unk0;
   uint32 unk1;
   uint32 unk2;
@@ -107,4 +114,4 @@ struct TSCB_NAMETABLE {
     } namestring;
   }
 
-} nametable;
+} stringtable;
