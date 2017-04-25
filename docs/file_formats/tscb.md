@@ -53,15 +53,15 @@ additional file descriptors in the MainField folder.
 |  0x00  |  4   | `float centerX`                                                     |
 |  0x04  |  4   | `float centerY`                                                     |
 |  0x08  |  4   | `float edgeLength`                                                  |
-|  0x0C  |  4   | `float unk3`                                                        |
-|  0x10  |  4   | `float unk4`                                                        |
-|  0x14  |  4   | `float unk5`                                                        |
-|  0x18  |  4   | `float unk6`                                                        |
-|  0x1C  |  4   | `uint32 unk7` (always 0, 1 or 2)                                    |
+|  0x0C  |  4   | `float unk0`                                                        |
+|  0x10  |  4   | `float unk1`                                                        |
+|  0x14  |  4   | `float unk2`                                                        |
+|  0x18  |  4   | `float unk3`                                                        |
+|  0x1C  |  4   | `uint32 unk4` (always 0, 1 or 2)                                    |
 |  0x20  |  4   | `uint32 stringOffset` offset to the tile "name" in the string table |
-|  0x24  |  4   | `uint32 unk9` Always 0.                                             |
-|  0x28  |  4   | `uint32 unk10` Always 0.                                            |
-|  0x2C  |  4   | `uint32 unk11` ( always seems to be 0 or 4)                         |
+|  0x24  |  4   | `uint32 unk5` Always 0.                                             |
+|  0x28  |  4   | `uint32 unk6` Always 0.                                             |
+|  0x2C  |  4   | `uint32 unk7` ( always seems to be 0 or 4)                          |
 
 Furthermore, **if `unk7` is NOT 0** there will be a further `uint32` at `0x30`
 describing a number of further `uint32`s in the structure.

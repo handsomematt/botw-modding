@@ -66,11 +66,11 @@ struct {
     float centerX;
     float centerY;
     float edgeLength;
+    float unk0;
+    float unk1;
+    float unk2;
     float unk3;
-    float unk4;
-    float unk5;
-    float unk6;
-    uint32 unk7; // row number
+    uint32 unk4; // row number
 
     uint32 strOffset;
 
@@ -80,9 +80,9 @@ struct {
     string fileName;
     FSeek(strReadRestorePos);
 
-    uint32 unk9;
-    uint32 unk10;
-    uint32 unk11; // always 4?
+    uint32 unk5;
+    uint32 unk6;
+    uint32 unk7; // always equal to variableCount / 2?
 
     if (unk7 != 0)
     {
@@ -97,9 +97,9 @@ struct {
 
 FSeek(header.stringTableOffset);
 struct TSCB_STRINGTABLE {
-  uint32 unk0;
-  uint32 unk1;
-  uint32 unk2;
+  uint32 unk0; // TODO: 
+  uint32 unk1; // these unks are bad, they're leftover from not reading the overflow vars in the previous struct
+  uint32 unk2; // remove them at some point
   uint32 unk3;
      
   local int num;
