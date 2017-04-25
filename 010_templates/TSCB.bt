@@ -65,7 +65,7 @@ struct {
 
     float centerX;
     float centerY;
-    float bounds;
+    float edgeLength;
     float unk3;
     float unk4;
     float unk5;
