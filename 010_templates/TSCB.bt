@@ -63,9 +63,9 @@ struct {
 
     FSkip(skipPos);
 
-    float positionX;
-    float positionY;
-    float scale;
+    float centerX;
+    float centerY;
+    float bounds;
     float unk3;
     float unk4;
     float unk5;
@@ -92,7 +92,7 @@ struct {
 
     FSeek(lastPos);
     FSkip(4);
-  } unk_str1[header.fileCollectionCount] <optimize=false, read=FILE_STR_READ>;
+  } fileStruct[header.fileCollectionCount] <optimize=false, read=FILE_STR_READ>;
 } fileCollection;
 
 FSeek(header.stringTableOffset);
@@ -104,14 +104,18 @@ struct TSCB_STRINGTABLE {
      
   local int num;
   while (!FEof()) {
-    struct TSCB_NAMESTRING {
-      // Skip any padding (these strings are null-padded to 4-byte boundaries)
-      while (ReadByte() == 0) {
-        FSeek(FTell() + 1);
-      }
+    // Skip any padding (these strings are null-padded to 4-byte boundaries)
+    while (!FEof() && ReadByte() == 0) {
+      FSeek(FTell() + 1);
+    }
     
+    if (FEof()) {
+      break;
+    }
+    
+    struct STRINGTABLE_ENTRY {
       string name;
-    } namestring;
+    } stringtable_entry;
   }
 
 } stringtable;
