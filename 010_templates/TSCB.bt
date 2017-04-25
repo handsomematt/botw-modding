@@ -69,7 +69,7 @@ struct {
     float unk0;
     float unk1;
     float unk2;
-    float unk3;
+    float unk3; // always 0 when variableCount is 0 (maybe?)
     uint32 unk4; // always equal to variableCount / 4
 
     uint32 strOffset;
@@ -86,8 +86,20 @@ struct {
 
     if (unk7 != 0)
     {
-        uint32 variableCount;
+        uint32 variableCount; // signals if there is a mate, water, grass
+                              // map available to go along with the hght
+
         uint32 additionalInts[variableCount];
+        // 20, 3, 0, 1, 0, 3, 1, 1 = hght, mate, water, grass
+        // 20, 3, 1, 1, 0, 3, 0, 1 = hght, mate, water, grass  why two?
+        // 3, 1, 1, 0              = hght, mate, water
+        // 3, 0, 1, 0              = hght, mate, grass
+          // Always seems to have unk2 == 1 and unk3 == 0..
+          // Also, just because there's no water map doesn't mean
+          // that there is no water on the map. It could be sourcing from
+          // higher LOD's or we could be misunderstanding what water maps
+          // are
+        // nothing                 = hght, mate only
     }
 
     FSeek(lastPos);
