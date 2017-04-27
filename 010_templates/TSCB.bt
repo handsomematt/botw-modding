@@ -1,5 +1,7 @@
 // BoTW TSCB
 // Used to index heightmap files in the Terrain folder
+BigEndian();
+
 struct TSCB_HEADER {
   char magic[4];
   uint32 unk0;
