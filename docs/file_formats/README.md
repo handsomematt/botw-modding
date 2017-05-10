@@ -4,6 +4,7 @@
 * [`bfres`](bfres.md) - [!]
 * [`blwp`](blwp.md) - List of instanced meshes.
 * [`byml`](byml.md) - Binary YAML file.
+* [`hght`](hght.md) - Heightmap referenced by `tscb`.
 * [`pack`](sarc.md) - SARC archive containing many other archives.
 * [`sarc`](sarc.md) - Generic SARC archive.
 * [`tscb`](tscb.md) - Terrain file.
