@@ -41,6 +41,7 @@ within the file does not seem to matter.
 |    0xD0    |          Value         | Boolean. Node is 1 or 0 representing true or false respectively.                                     |
 |    0xD1    |          Value         | Integer. Node is a signed integer value.                                                             |
 |    0xD2    |          Value         | Float. Node is a 32 bit floating point value.                                                        |
+|    0xD3    |          Value         | Hash. Node is a 32 bit CRC hash.                                                        |
 
 #### Value Nodes
 Value nodes can only be encoded as children of other nodes. Each value node has
