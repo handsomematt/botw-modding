@@ -76,7 +76,7 @@ has the following structure.
 
 | Offset | Size | Description                                                                                                                              |
 |:------:|:----:|------------------------------------------------------------------------------------------------------------------------------------------|
-|  0x00  |  3   | 0xC1 node type.                                                                                                                          |
+|  0x00  |  3   | Name. Value is an index in the name table.                                                                                                                          |
 |  0x03  |  1   | The node type.                                                                                                                           |
 |  0x04  |  4   | Value. For value nodes this is the four byte node value. For full nodes this is an offset to the node relative to the start of the file. |
 
