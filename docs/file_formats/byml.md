@@ -19,7 +19,7 @@ string value table node; the path value node and finally the root node.
 
 | Offset | Size | Description                                                                                                                                                    |
 |:------:|:----:|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|  0x00  |  2   | String "BY" in ASCII (file identifier).                                                                                                                        |
+|  0x00  |  2   | String "BY" (big endian) or "YB" (little endian) in ASCII (file identifier).                                                                                                                        |
 |  0x02  |  2   | Version 0x0002 in Breath of the Wild.                                                                                                                          |
 |  0x04  |  4   | Node name table node Offset to the node name table node, relative to start (usually 0x014). Unknown if this can ever be 0. Must be a string value node (0xc2). |
 |  0x08  |  4   | String value table node Offset to the string value table node, relative to start. May be 0 if string values unused. Must be a string value node (0xc2).        |
