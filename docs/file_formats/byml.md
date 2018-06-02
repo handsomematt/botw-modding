@@ -39,9 +39,9 @@ within the file does not seem to matter.
 |    0xC1    |          Full          | Dictionary. Node is a mapping from strings in the node name table to other nodes.                    |
 |    0xC2    | Full (Special Purpose) | String table. Special purpose node type only seen in the node name table and the string value table. |
 |    0xD0    |          Value         | Boolean. Node is 1 or 0 representing true or false respectively.                                     |
-|    0xD1    |          Value         | Integer. Node is a signed integer value.                                                             |
+|    0xD1    |          Value         | Integer. Node is a signed 32 bit integer value.                                                             |
 |    0xD2    |          Value         | Float. Node is a 32 bit floating point value.                                                        |
-|    0xD3    |          Value         | Hash. Node is a 32 bit CRC hash.                                                        |
+|    0xD3    |          Value         | Integer. Node is an unsigned 32 bit integer value. The game uses this for some CRC32 hashes and for masks.                                                        |
 
 #### Value Nodes
 Value nodes can only be encoded as children of other nodes. Each value node has
