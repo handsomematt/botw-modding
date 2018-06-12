@@ -2,7 +2,7 @@
 
 BYML is a binary YAML file and is used as a generic data container throughout
 Breath of the Wild. Unlike other Nintendo games Breath of the Wild identifies
-it's version as `0x02` being the first to do so.
+its version as `0x02` being the first to do so.
 
 BYML is mostly used in the following files: `Actor/ActorInfo.product.sbyml`,
 `Event/EventInfo.sbyml` and extensively throughout `Bootup.pack` storing data
