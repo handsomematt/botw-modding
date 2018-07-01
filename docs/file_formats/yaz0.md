@@ -13,7 +13,10 @@ A simple tool to decompress Yaz0 files can be found in [`/tools/unyaz0.cs`](/too
 |:------:|:--------:|-------------------------------|
 |  0x00  |  char[4] | "Yaz0"                        |
 |  0x04  | uint32_t | size of the uncompressed data |
-|  0x08  |  char[8] | null padding                  |
+|  0x08  | uint32_t | reserved                      |
+|  0x0C  | uint32_t | reserved                      |
+
+Certain games use the first reserved field for the alignment of the files data if the compressed file is a [SARC](sarc.md).
 
 ### Data Groups
 
